@@ -5,6 +5,7 @@ import { Footer } from "../components/footer/footer";
 import { Outlet } from 'react-router';
 import { Menu } from '../components/menu/menu';
 import { MyCloudContext } from './config/context';
+import type { User } from './config/types';
 
 export const MyCloud = () => {
 
@@ -12,6 +13,8 @@ export const MyCloud = () => {
   const [error, setError] = useState<Error | null>(null);
   const [isAuthorised, setIsAuthorised] = useState<boolean>(false);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [stockOwner, setStockOwner] = useState<User | null>(null);
   const [token, setToken] = useState<string>('');
 
   return (
@@ -20,11 +23,15 @@ export const MyCloud = () => {
       error,
       isAuthorised,
       isAdmin,
+      currentUser,
+      stockOwner,
       token,
       setLoading,
       setError,
       setIsAuthorised,
       setIsAdmin,
+      setCurrentUser,
+      setStockOwner,
       setToken,
     } }>
       <div className="main">

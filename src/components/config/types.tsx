@@ -27,7 +27,6 @@ export interface IFile {
   created_at?: number;
   downloaded_at?: number;
   comment?: string;
-  filePath?: string;
   public_url?: string;
 }
 
