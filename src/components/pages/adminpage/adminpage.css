@@ -1,0 +1,63 @@
+.users-box {
+  height: 100%;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.user-row {
+  height: 50px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid #444;
+}
+
+.user-username {
+  width: 100px;
+}
+.user-fullname {
+  width: 200px;
+  flex-grow: 1;
+}
+
+.user-email {
+  width: 200px;
+  flex-grow: 1;
+}
+
+.user-directory {
+  width: 200px;
+  flex-grow: 1;
+}
+
+.user-file-number {
+  width: 80px;
+  text-align: center;
+  flex-grow: 0;
+}
+
+.user-file-volume {
+  width: 120px;
+  flex-grow: 0;
+}
+
+.user-admin {
+  width: 100px;
+  text-align: center;
+  flex-grow: 0;
+}
+
+.user-btn {
+  width: 40px;
+  padding: 0 20px;
+  cursor: pointer;
+  flex-grow: 0;
+  
+}
+
+.large {
+  font-size: 1.5em;
+}

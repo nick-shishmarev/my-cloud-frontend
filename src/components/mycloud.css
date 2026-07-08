@@ -1,0 +1,87 @@
+h1 {
+  margin: auto;
+  font-size: 6em;
+  text-align: center;
+  vertical-align: middle;
+}
+
+h2 {
+  margin: auto;
+  padding: 10px;
+  font-size: 1.5em;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.footer {
+  width: 100%;
+  height: 300px;
+  background: #000;
+  color: #fff;
+  flex-grow: 0;
+}
+
+.container {
+  width: 100%;
+  background: #eee;
+  display: flex;
+  flex-grow: 2;
+}
+
+.message-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.0);
+}
+
+.error_msg {
+  max-width: 1000px;
+  min-height: 100px;
+  width: 100%;
+  padding: 10px 20px;
+  text-align: center;
+  color: rgb(170, 13, 13);
+  font-size: 1.5em;
+  font-weight: bold;
+  background: #fff;
+  opacity: 1;
+  border: 5px double rgb(170, 13, 13);
+  z-index: 10;
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #2c0569;
+  animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
