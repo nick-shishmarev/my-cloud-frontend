@@ -4,12 +4,15 @@ import { MyCloudContext } from "../config/context"
 
 
 export const Header = () => {
-  const { currentUser } = useContext(MyCloudContext)
+  const { currentUser, isAdmin } = useContext(MyCloudContext)
 
   return (
     <div className="header">
       <h1 className='header-title'>My Cloud</h1>
-      <div className="header-user">{currentUser && 'Пользователь: '} {currentUser?.fullname}</div>
+      <div className="header-user">
+        {currentUser && (isAdmin ? 'Админ: ' : 'Пользователь: ')} 
+        {currentUser?.fullname}
+      </div>
     </div>
   )
 }

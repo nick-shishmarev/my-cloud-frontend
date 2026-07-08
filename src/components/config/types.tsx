@@ -35,11 +35,15 @@ export interface IMyCloudContext {
   isAdmin: boolean;
   loading: boolean;
   error: Error | null;
+  currentUser: User | null;
+  stockOwner: User | null;
   token: string;
   setIsAuthorised: React.Dispatch<React.SetStateAction<boolean>>;
   setIsAdmin: React.Dispatch<React.SetStateAction<boolean>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setError: React.Dispatch<React.SetStateAction<Error | null>>;
+  setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
+  setStockOwner: React.Dispatch<React.SetStateAction<User | null>>;
   setToken: React.Dispatch<React.SetStateAction<string>>;
 }
 
