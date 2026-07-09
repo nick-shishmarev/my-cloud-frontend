@@ -10,7 +10,7 @@ export const Header = () => {
     <div className="header">
       <h1 className='header-title'>My Cloud</h1>
       <div className="header-user">
-        {currentUser && (isAdmin ? 'Админ: ' : 'Пользователь: ')} 
+        {currentUser && (isAdmin ? 'Администратор: ' : 'Пользователь: ')} 
         {currentUser?.fullname}
       </div>
     </div>

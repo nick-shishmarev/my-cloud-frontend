@@ -1,7 +1,10 @@
 import './menu.css'
+import { useContext } from 'react'
 import { NavLink } from "react-router"
+import { MyCloudContext } from '../config/context'
 
 export const Menu = () => {
+  const { isAuthorised, isAdmin } = useContext(MyCloudContext)
 
   return (
     <nav className="menu">
@@ -11,36 +14,36 @@ export const Menu = () => {
       >
         ГЛАВНАЯ
       </NavLink>
-      <NavLink 
+      {isAuthorised && <NavLink 
         to="/main" 
         className={({ isActive }) => `menu__item + ${isActive ? 'menu__item-active' : ''}`}
       >
-        Файлы
-      </NavLink>
-      <NavLink 
+        Хранилище
+      </NavLink>}
+      {isAdmin && <NavLink 
         to="/admin" 
         className={({ isActive }) => `menu__item + ${isActive ? 'menu__item-active' : ''}`}
       >
         Пользователи
-      </NavLink>
-      <NavLink 
+      </NavLink>}
+      {!isAuthorised && <NavLink 
         to="/login" 
         className={({ isActive }) => `menu__item + ${isActive ? 'menu__item-active' : ''}`}
       >
         Вход
-      </NavLink>
-      <NavLink 
+      </NavLink>}
+      {!isAuthorised && <NavLink 
         to="/register" 
         className={({ isActive }) => `menu__item + ${isActive ? 'menu__item-active' : ''}`}
       >
         Регистрация
-      </NavLink>
-      <NavLink 
+      </NavLink>}
+      {isAuthorised && <NavLink 
         to="/logout" 
         className={({ isActive }) => `menu__item + ${isActive ? 'menu__item-active' : ''}`}
       >
         Выход
-      </NavLink>
+      </NavLink>}
     </nav>
   )
 }

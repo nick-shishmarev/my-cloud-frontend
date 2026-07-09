@@ -1,8 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { MyCloudContext } from "../../config/context";
 import { BASE_URL, URL_USERS } from "../../config/constants";
-import type { FetchParams, User } from "../../config/types";
+import type { FetchParams, IFile, User } from "../../config/types";
+import { fileSize } from "../../utilits/fileSize";
 
 interface Props {
   user: User;
@@ -14,6 +15,8 @@ export const DisplayUser = (props: Props) => {
   const {id, username, fullname, email, directory, is_staff} = user;
   const { token, setLoading, setStockOwner } = useContext(MyCloudContext); 
   const navigate = useNavigate();
+  const [fileNumber, setFileNumber] = useState<number>(0);
+  const [fileVolume, setFileVolume] = useState<number>(0);
   const [userError, setUserError] = useState<Error | null>(null);
 
   const onDelete = async () => {
@@ -48,6 +51,48 @@ export const DisplayUser = (props: Props) => {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    
+    setLoading(true);
+
+    (async () => {
+      const url = `${URL_USERS}${id}/files`;
+      const params: FetchParams = {
+        method: "GET", 
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${token}`
+        } 
+      };
+
+      try {
+        const result = await fetch(BASE_URL + url, params);
+        
+        if (!result.ok) {
+          throw new Error(`HTTP error! status: ${result.status}`);
+        }
+        
+        const files = await result.json() as IFile[];
+
+        // console.log(files);
+        
+        setFileNumber(files.length);
+
+        const volume = files.reduce((sum, file) => {
+          return sum +file.size_bytes!;
+        }, 0);
+        setFileVolume(volume);
+        
+      } catch (err) {
+        const error = err instanceof Error ? err : new Error(String(err));
+        setUserError(error)
+        
+      } finally {
+        setLoading(false);
+      }
+    })();
+    }, [token, id, setUserError, setLoading, setFileVolume, setFileNumber]);
 
   const onAdminChange = async () => {
     setLoading(true);
@@ -97,8 +142,8 @@ export const DisplayUser = (props: Props) => {
         <div className="user-fullname">{fullname}</div>
         <div className="user-email">{email}</div>
         <div className="user-directory">{directory}</div>
-        <div className="user-file-number"></div>
-        <div className="user-file-volume"></div>
+        <div className="user-file-number">{fileNumber}</div>
+        <div className="user-file-volume">{fileSize(fileVolume)}</div>
         <div className="user-btn large" title="К хранилищу" onClick={toFiles}>⬆️</div>
         <div className="user-btn large" onClick={onAdminChange} title="Администратор/Нет">&#9989;</div>
         <div className="user-btn large" onClick={onDelete} title="Удалить пользователя">&#10060;</div>

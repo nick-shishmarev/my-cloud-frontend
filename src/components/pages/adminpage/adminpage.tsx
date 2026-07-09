@@ -15,24 +15,21 @@ export const AdminPage = () => {
   const getUsers = useCallback(async () => {
     const url = URL_USERS;
     const params: FetchParams = {
-      method: "GET", 
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${token}`
-      } 
-    };
+        method: "GET", 
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${token}`
+        } 
+      };
 
     setLoading(true);
     try {
       const result = await fetch(BASE_URL + url, params);
 
       if (!result.ok) {
-        if (result.status === 403 || result.status === 401) {
-          throw new Error('Недостаточно прав!')
-        }
         throw new Error(`HTTP error! status: ${result.status}`);
       }
-
+	  
       const users = await result.json();
       setUsersList(users.sort((a: User, b: User) => a.fullname.localeCompare(b.fullname)));
     } catch (err) {
