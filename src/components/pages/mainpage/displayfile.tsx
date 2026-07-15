@@ -83,6 +83,7 @@ export const DisplayFile = (props: Props) => {
     a.click();
     a.remove();
     window.URL.revokeObjectURL(downloadUrl);
+    getFiles();
   }
 
   const onSave = async () => {

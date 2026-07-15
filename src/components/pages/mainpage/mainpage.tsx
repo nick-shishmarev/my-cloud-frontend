@@ -101,11 +101,11 @@ export const MainPage = () => {
       </div>
       <div className="main-box">
         <div className="main-box-header">
-          <div className="file-name">Name</div>
-          <div className="file-size">Size</div>
-          <div className="file-comment">Comment</div>
-          <div className="file-date">Uploaded</div>
-          <div className="file-date">Downloaded</div>
+          <div className="file-name">Имя файла</div>
+          <div className="file-size">Размер файла</div>
+          <div className="file-comment">Комментарий</div>
+          <div className="file-date">Загружен</div>
+          <div className="file-date">Последняя выгрузка</div>
           <div className="file-btn"></div>
           <div className="file-btn"></div>
           <div className="file-btn"></div>
