@@ -31,6 +31,7 @@ export interface IFile {
 }
 
 export interface IMyCloudContext {
+  BASE_URL: string;
   isAuthorised: boolean;
   isAdmin: boolean;
   loading: boolean;

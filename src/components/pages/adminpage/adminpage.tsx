@@ -1,6 +1,6 @@
 import './adminpage.css';
 import { useCallback, useContext, useEffect, useState } from "react";
-import { BASE_URL, URL_USERS } from "../../config/constants";
+import { URL_USERS } from "../../config/constants";
 import { MyCloudContext } from "../../config/context";
 import type { FetchParams, User } from "../../config/types";
 import { useNavigate } from 'react-router';
@@ -8,7 +8,7 @@ import { DisplayUser } from './displayuser';
 
 
 export const AdminPage = () => {
-  const { token, isAuthorised, isAdmin, loading, error, setLoading, setError } = useContext(MyCloudContext);
+  const { BASE_URL, token, isAuthorised, isAdmin, loading, error, setLoading, setError } = useContext(MyCloudContext);
   const [usersList, setUsersList] = useState<User[]>([]);
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ export const AdminPage = () => {
     } finally {
       setLoading(false);
     }
-  }, [setError, setLoading, setUsersList])
+  }, [BASE_URL, token, setError, setLoading, setUsersList])
   
   useEffect(() => {
     getUsers();

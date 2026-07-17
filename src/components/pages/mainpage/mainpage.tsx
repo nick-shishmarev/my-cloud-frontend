@@ -1,14 +1,14 @@
 import './mainpage.css';
 import { useCallback, useContext, useEffect, useState } from "react";
 import { MyCloudContext } from "../../config/context";
-import { BASE_URL, URL_FILES, URL_USERS } from '../../config/constants';
+import { URL_FILES, URL_USERS } from '../../config/constants';
 import type { IFile, User, FetchParams } from '../../config/types';
 import { useNavigate } from 'react-router';
 import { DisplayFile } from './displayfile';
 
 
 export const MainPage = () => {
-  const { 
+  const { BASE_URL,  
     token, 
     stockOwner, 
     currentUser, 
@@ -64,7 +64,7 @@ export const MainPage = () => {
     } finally {
       setLoading(false);
     }
-  }, [stockOwner, isAdmin, token, setError, setLoading])
+  }, [BASE_URL, stockOwner, isAdmin, token, setError, setLoading])
 
   const addFile = () => {
     navigate('/upload');

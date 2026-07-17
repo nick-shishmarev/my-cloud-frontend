@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { MyCloudContext } from "../../config/context";
-import { BASE_URL, URL_FILES } from "../../config/constants";
+import { URL_FILES } from "../../config/constants";
 import type { FetchParams, IFile } from "../../config/types";
 import { fileSize } from "../../utilits/fileSize";
 
@@ -11,7 +11,7 @@ interface Props {
 
 export const DisplayFile = (props: Props) => {
   const { file, getFiles } = props;
-  const { token, error, setLoading, setError } = useContext(MyCloudContext);
+  const { BASE_URL, token, error, setLoading, setError } = useContext(MyCloudContext);
   const [newName, setNewName] = useState<string>('');
   const [newСomment, setNewСomment] = useState<string>('');
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');

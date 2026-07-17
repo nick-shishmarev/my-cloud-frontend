@@ -1,14 +1,14 @@
 import './fileinputpage.css'
 import { useContext, useState } from "react";
 import { MyCloudContext } from "../../config/context";
-import { BASE_URL, URL_FILES } from "../../config/constants";
+import { URL_FILES } from "../../config/constants";
 import type { FetchParams } from "../../config/types";
 import { useNavigate } from "react-router";
 import { fileSize } from '../../utilits/fileSize';
 
 
 export const UploadFilePage = () => {
-  const { token, isAuthorised } = useContext(MyCloudContext);
+  const { BASE_URL, token, isAuthorised } = useContext(MyCloudContext);
   const navigate = useNavigate();
   const [displayName, setDisplayName] = useState<string>('');
   const [comment, setComment] = useState<string>('');

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { MyCloudContext } from "../../config/context";
-import { BASE_URL, URL_USERS } from "../../config/constants";
+import { URL_USERS } from "../../config/constants";
 import type { FetchParams, IFile, User } from "../../config/types";
 import { fileSize } from "../../utilits/fileSize";
 
@@ -13,7 +13,7 @@ interface Props {
 export const DisplayUser = (props: Props) => {
   const { user, getUsers } = props;
   const {id, username, fullname, email, directory, is_staff} = user;
-  const { token, setLoading, setStockOwner } = useContext(MyCloudContext); 
+  const { BASE_URL, token, setLoading, setStockOwner } = useContext(MyCloudContext); 
   const navigate = useNavigate();
   const [fileNumber, setFileNumber] = useState<number>(0);
   const [fileVolume, setFileVolume] = useState<number>(0);
@@ -75,8 +75,6 @@ export const DisplayUser = (props: Props) => {
         
         const files = await result.json() as IFile[];
 
-        // console.log(files);
-        
         setFileNumber(files.length);
 
         const volume = files.reduce((sum, file) => {
@@ -92,7 +90,7 @@ export const DisplayUser = (props: Props) => {
         setLoading(false);
       }
     })();
-    }, [token, id, setUserError, setLoading, setFileVolume, setFileNumber]);
+    }, [BASE_URL, token, id, setUserError, setLoading, setFileVolume, setFileNumber]);
 
   const onAdminChange = async () => {
     setLoading(true);

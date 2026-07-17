@@ -3,11 +3,12 @@ import { useContext, useState } from "react"
 import { MyCloudContext } from "../../config/context"
 import { type FetchParams } from "../../config/types";
 import { useNavigate } from "react-router";
-import { BASE_URL, URL_AUTH } from '../../config/constants';
+import { URL_AUTH } from '../../config/constants';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { loading,
+  const { BASE_URL, 
+    loading,
     error, 
     setIsAuthorised, 
     setIsAdmin, 
@@ -47,7 +48,15 @@ export const LoginPage = () => {
           return;
         }
 
-        setErrorMsg('User not found or wrong password');
+        const responseJson: string[][] = await result.json();
+        console.log(responseJson);
+        console.log(Object.values(responseJson));
+        console.log(Object.values(responseJson)[0]);
+        console.log(Object.values(responseJson)[0].join('\n'));
+        const message = Object.values(responseJson)[0].join('\n');
+        setErrorMsg(message);
+       
+        // setErrorMsg('User not found or wrong password');
 
       } catch (err) {
         const myerror = err instanceof Error ? err : new Error(String(err));
@@ -106,9 +115,9 @@ export const LoginPage = () => {
           </button>
 
         </form>
-        <div className="login-error-box">
-          {errorMsg !== '' && <div className="login-error-message">{errorMsg}</div>}
-        </div>
+      </div>
+      <div className="login-error-box">
+        {errorMsg !== '' && <div className="login-error-message">{errorMsg}</div>}
       </div>
     </div>
   )

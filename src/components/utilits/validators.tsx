@@ -17,14 +17,26 @@ export function isValidUserName(username: string) {
 export function isValidPassword(password: string) {
 
   if (password.length < PASSWORD_MIN_LEN) {
-    return false;
+    return {fault: true, msg: `Длина пароля меньше ${PASSWORD_MIN_LEN}`};
   }
 
-  const hasUpper = /[A-Z]/.test(password);
-  const hasDigit = /\d/.test(password);
-  const hasSpecial = /[@#$%&*()<>?!]/.test(password);
+  if (!/[A-Z]/.test(password)) {
+    return {fault: true, msg: `В пароле должна быть хотя бы одна заглавная буква`};
+  }
 
-  return hasUpper && hasDigit && hasSpecial;
+  if (!/[a-z]/.test(password)) {
+    return {fault: true, msg: `В пароле должна быть хотя бы одна строчная буква`};
+  }
+
+  if (!/[0-9]/.test(password)) {
+    return {fault: true, msg: `В пароле должна быть хотя бы одна цифра`};
+  }
+
+  if (!/[@#$%&*()<>?!]/.test(password)) {
+    return {fault: true, msg: `В пароле должен быть хотя бы один спецсимвол`};
+  }
+
+  return {fault: false, msg: `Пароль прошел проверку`};
 }
 
 export function isValidEmail(email:string) {

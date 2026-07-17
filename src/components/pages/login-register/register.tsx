@@ -4,14 +4,15 @@ import { MyCloudContext } from "../../config/context"
 import { type FetchParams } from "../../config/types";
 import type { RegRequest } from "../../config/types";
 import { useNavigate } from 'react-router';
-import { BASE_URL, URL_REGISTER, USERNAME_MAX_LEN } from '../../config/constants';
+import { URL_REGISTER, USERNAME_MAX_LEN } from '../../config/constants';
 import { isValidEmail, isValidPassword, isValidUserName } from '../../utilits/validators';
 
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
 
-  const { loading, 
+  const { BASE_URL, 
+    loading, 
     setIsAuthorised, 
     setIsAdmin, 
     setToken, 
@@ -50,7 +51,11 @@ export const RegisterPage = () => {
         return;
       }
       if (result.status === 400) {
-        setErrorMsg('Пользователь с таким логином уже зарегистрирован')
+        const responseJson: string[] = await result.json();
+        console.log(responseJson);
+        console.log(Object.values(responseJson));
+        const message = JSON.stringify(Object.values(responseJson).join(' / '));
+        setErrorMsg(message);
         return;
       }
       setErrorMsg('Ошибка регистрации');
@@ -89,8 +94,10 @@ export const RegisterPage = () => {
       return
     }
 
-    if (!isValidPassword(userPsw)) {
-      setErrorMsg('Недопустимый пароль');
+    const { fault, msg } = isValidPassword(userPsw)
+
+    if (fault) {
+      setErrorMsg(msg);
       return
     }
 
@@ -145,6 +152,7 @@ export const RegisterPage = () => {
               placeholder='****'
               value={userPsw}
               required
+              autoComplete="new-password"
               onChange={onChangePsw}
               />
           </div>
@@ -174,13 +182,14 @@ export const RegisterPage = () => {
           </div>
 
           <div className="login-form-group">
-            <label htmlFor="psw">E-mail</label>
+            <label htmlFor="email">E-mail</label>
             <input type="email" 
               id="email"
               name="email"
               placeholder='name@aaa.ru'
               value={userEmail}
               required
+              autoComplete="new-email"
               onChange={(e) => setUserEmail(e.target.value)}
               />
           </div>
@@ -189,9 +198,7 @@ export const RegisterPage = () => {
             Зарегистрироваться
           </button>
         </form>
-        <div className="login-error-box">
-          {errorMsg !== '' && <div className="login-error-message">{errorMsg}</div>}
-        </div>
+        
         <div className="login-text">
           <ul>
             <li>
@@ -202,6 +209,9 @@ export const RegisterPage = () => {
             </li>
           </ul>
         </div>
+      </div>
+      <div className="login-error-box">
+        {errorMsg !== '' && <div className="login-error-message">{errorMsg}</div>}
       </div>
     </div>
   )
