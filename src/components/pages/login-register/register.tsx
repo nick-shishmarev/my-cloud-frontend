@@ -52,8 +52,6 @@ export const RegisterPage = () => {
       }
       if (result.status === 400) {
         const responseJson: string[] = await result.json();
-        console.log(responseJson);
-        console.log(Object.values(responseJson));
         const message = JSON.stringify(Object.values(responseJson).join(' / '));
         setErrorMsg(message);
         return;
@@ -62,7 +60,6 @@ export const RegisterPage = () => {
     } catch (err) {
       const error = err instanceof Error ? err : new Error(String(err));
       setError(error)
-        console.log(err);
     } finally {
       setLoading(false);
     }

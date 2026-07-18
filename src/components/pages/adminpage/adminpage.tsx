@@ -34,7 +34,6 @@ export const AdminPage = () => {
       setUsersList(users.sort((a: User, b: User) => a.fullname.localeCompare(b.fullname)));
     } catch (err) {
       const myerr = err instanceof Error ? err : new Error(String(err));
-      console.log(myerr);
       setError(myerr);
     } finally {
       setLoading(false);

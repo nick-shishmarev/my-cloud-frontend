@@ -49,14 +49,8 @@ export const LoginPage = () => {
         }
 
         const responseJson: string[][] = await result.json();
-        console.log(responseJson);
-        console.log(Object.values(responseJson));
-        console.log(Object.values(responseJson)[0]);
-        console.log(Object.values(responseJson)[0].join('\n'));
         const message = Object.values(responseJson)[0].join('\n');
         setErrorMsg(message);
-       
-        // setErrorMsg('User not found or wrong password');
 
       } catch (err) {
         const myerror = err instanceof Error ? err : new Error(String(err));

@@ -75,9 +75,8 @@ export const UploadFilePage = () => {
       }
 
       throw new Error(`Error uploading! status: ${result.status}`);
-    } catch (err) {
+    } catch {
       setStatus('error');
-      console.log('Error loading: ', err)
     }
   }
 

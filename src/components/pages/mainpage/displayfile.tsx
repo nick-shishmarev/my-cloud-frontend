@@ -129,8 +129,7 @@ export const DisplayFile = (props: Props) => {
     try {
       await navigator.clipboard.writeText(publicLink!);
       setCopyStatus('copied');
-    } catch (err) {
-      console.log(err);
+    } catch {
       setCopyStatus('error');
     }
   };

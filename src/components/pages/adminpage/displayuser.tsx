@@ -32,8 +32,6 @@ export const DisplayUser = (props: Props) => {
     try {
       const result = await fetch(BASE_URL + url, params);
 
-      console.log(result)
-
       if (!result.ok) {
         if (result.status === 423) {
           throw new Error(`Отказ удаления: в хранилище пользователя остались файлы`);
