@@ -123,15 +123,35 @@ export const DisplayFile = (props: Props) => {
     setNewСomment(comment!);
   }
 
-  const onCopyLink = async () => {
-    if (publicLink === '') return;
+  const copyToClipboard = (text: string): 'copied' | 'error' => {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.opacity = '0';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
 
     try {
-      await navigator.clipboard.writeText(publicLink!);
-      setCopyStatus('copied');
+      const result = document.execCommand('copy');
+      return result ? 'copied' : 'error';
     } catch {
-      setCopyStatus('error');
+      return 'error';
+    } finally {
+      document.body.removeChild(textArea);
     }
+  };
+
+  const onCopyLink = async () => {
+    if (publicLink === '') return;
+    const status = copyToClipboard(publicLink);
+    setCopyStatus(status);
+    // try {
+    //   await navigator.clipboard.writeText(publicLink!);
+    //   setCopyStatus('copied');
+    // } catch {
+    //   setCopyStatus('error');
+    // }
   };
 
   return (
