@@ -2,7 +2,7 @@ import { createContext } from "react";
 import type { IMyCloudContext } from "./types";
 
 const initialState: IMyCloudContext = {
-  BASE_URL: '',
+  baseUrls: null,
   loading: false,
   error: null,
   isAuthorised: true,

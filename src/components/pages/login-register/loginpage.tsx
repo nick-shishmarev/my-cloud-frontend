@@ -7,7 +7,7 @@ import { URL_AUTH } from '../../config/constants';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { BASE_URL, 
+  const { baseUrls, 
     loading,
     error, 
     setIsAuthorised, 
@@ -22,6 +22,7 @@ export const LoginPage = () => {
   const [userName, setUserName] = useState('');
   const [userPsw, setUserPsw] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const { baseUrl } = baseUrls!;
 
   const loginUser = async (userName: string, userPsw: string) => {
       const url = URL_AUTH; 
@@ -33,7 +34,7 @@ export const LoginPage = () => {
       setLoading(true);
 
       try {
-        const result = await fetch(BASE_URL + url, params);
+        const result = await fetch(baseUrl + url, params);
 
         if (result.status === 200) {
           const loginResponse = await result.json();

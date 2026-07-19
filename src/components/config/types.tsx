@@ -30,8 +30,13 @@ export interface IFile {
   public_url?: string;
 }
 
+export interface IbaseUrls {
+  baseUrl: string;
+  baseUrlMedia: string;
+}
+
 export interface IMyCloudContext {
-  BASE_URL: string;
+  baseUrls: IbaseUrls | null;
   isAuthorised: boolean;
   isAdmin: boolean;
   loading: boolean;

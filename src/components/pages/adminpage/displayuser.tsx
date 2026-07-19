@@ -13,11 +13,12 @@ interface Props {
 export const DisplayUser = (props: Props) => {
   const { user, getUsers } = props;
   const {id, username, fullname, email, directory, is_staff} = user;
-  const { BASE_URL, token, setLoading, setStockOwner } = useContext(MyCloudContext); 
+  const { baseUrls, token, setLoading, setStockOwner } = useContext(MyCloudContext); 
   const navigate = useNavigate();
   const [fileNumber, setFileNumber] = useState<number>(0);
   const [fileVolume, setFileVolume] = useState<number>(0);
   const [userError, setUserError] = useState<Error | null>(null);
+  const { baseUrl } = baseUrls!;
 
   const onDelete = async () => {
     setLoading(true);
@@ -30,7 +31,7 @@ export const DisplayUser = (props: Props) => {
     };
 
     try {
-      const result = await fetch(BASE_URL + url, params);
+      const result = await fetch(baseUrl + url, params);
 
       if (!result.ok) {
         if (result.status === 423) {
@@ -65,7 +66,7 @@ export const DisplayUser = (props: Props) => {
       };
 
       try {
-        const result = await fetch(BASE_URL + url, params);
+        const result = await fetch(baseUrl + url, params);
         
         if (!result.ok) {
           throw new Error(`HTTP error! status: ${result.status}`);
@@ -88,7 +89,7 @@ export const DisplayUser = (props: Props) => {
         setLoading(false);
       }
     })();
-    }, [BASE_URL, token, id, setUserError, setLoading, setFileVolume, setFileNumber]);
+    }, [baseUrl, token, id, setUserError, setLoading, setFileVolume, setFileNumber]);
 
   const onAdminChange = async () => {
     setLoading(true);
@@ -104,7 +105,7 @@ export const DisplayUser = (props: Props) => {
     };
 
     try {
-      const result = await fetch(BASE_URL + url, params);
+      const result = await fetch(baseUrl + url, params);
       if (result.ok) {
         getUsers();
       }

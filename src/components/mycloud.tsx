@@ -5,7 +5,7 @@ import { Footer } from "../components/footer/footer";
 import { Outlet } from 'react-router';
 import { Menu } from '../components/menu/menu';
 import { MyCloudContext } from './config/context';
-import type { User } from './config/types';
+import type { IbaseUrls, User } from './config/types';
 import { getBaseUrl } from './utilits/getbaseurl';
 
 export const MyCloud = () => {
@@ -17,15 +17,15 @@ export const MyCloud = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [stockOwner, setStockOwner] = useState<User | null>(null);
   const [token, setToken] = useState<string>('');
-  const [baseUrl, setBaseUrl] = useState<string>('');
+  const [baseUrls, setBaseUrls] = useState<IbaseUrls | null>(null);
 
   useEffect(() => {
-    getBaseUrl(setBaseUrl);
+    getBaseUrl(setBaseUrls);
   },[]);
 
   return (
     <MyCloudContext.Provider value={ {
-      BASE_URL: baseUrl,
+      baseUrls,
       loading,
       error,
       isAuthorised,

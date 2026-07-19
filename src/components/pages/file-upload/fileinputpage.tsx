@@ -8,13 +8,14 @@ import { fileSize } from '../../utilits/fileSize';
 
 
 export const UploadFilePage = () => {
-  const { BASE_URL, token, isAuthorised } = useContext(MyCloudContext);
+  const { baseUrls, token, isAuthorised } = useContext(MyCloudContext);
   const navigate = useNavigate();
   const [displayName, setDisplayName] = useState<string>('');
   const [comment, setComment] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<'idle' | 'uploading' | 'success' | 'error'>('idle');
   const [error, setError] = useState<string | null>(null);
+  const { baseUrl } = baseUrls!;
 
   if (!isAuthorised) {
     navigate('/');
@@ -62,7 +63,7 @@ export const UploadFilePage = () => {
     setStatus('uploading');
     
     try {
-      const result = await fetch(BASE_URL + url, params);
+      const result = await fetch(baseUrl + url, params);
 
       if (!result.ok) {
         throw new Error(`HTTP error! status: ${result.status}`);

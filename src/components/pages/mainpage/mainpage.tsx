@@ -8,7 +8,7 @@ import { DisplayFile } from './displayfile';
 
 
 export const MainPage = () => {
-  const { BASE_URL,  
+  const { baseUrls,  
     token, 
     stockOwner, 
     currentUser, 
@@ -23,6 +23,7 @@ export const MainPage = () => {
     
   const navigate = useNavigate();
   const [fileList, setFileList] = useState<IFile[]>([]);
+  const { baseUrl } = baseUrls!;
 
   const getFiles = useCallback(async () => {
     let url;
@@ -44,7 +45,7 @@ export const MainPage = () => {
     setLoading(true);
 
     try {
-      const result = await fetch(BASE_URL + url, params);
+      const result = await fetch(baseUrl + url, params);
 
       if (!result.ok) {
         throw new Error(`HTTP error! status: ${result.status}`);
@@ -64,7 +65,7 @@ export const MainPage = () => {
     } finally {
       setLoading(false);
     }
-  }, [BASE_URL, stockOwner, isAdmin, token, setError, setLoading])
+  }, [baseUrl, stockOwner, isAdmin, token, setError, setLoading])
 
   const addFile = () => {
     navigate('/upload');

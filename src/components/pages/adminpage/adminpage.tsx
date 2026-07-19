@@ -8,8 +8,9 @@ import { DisplayUser } from './displayuser';
 
 
 export const AdminPage = () => {
-  const { BASE_URL, token, isAuthorised, isAdmin, loading, error, setLoading, setError } = useContext(MyCloudContext);
+  const { baseUrls, token, isAuthorised, isAdmin, loading, error, setLoading, setError } = useContext(MyCloudContext);
   const [usersList, setUsersList] = useState<User[]>([]);
+  const { baseUrl } = baseUrls!;
   const navigate = useNavigate();
 
   const getUsers = useCallback(async () => {
@@ -24,7 +25,7 @@ export const AdminPage = () => {
 
     setLoading(true);
     try {
-      const result = await fetch(BASE_URL + url, params);
+      const result = await fetch(baseUrl + url, params);
 
       if (!result.ok) {
         throw new Error(`HTTP error! status: ${result.status}`);
@@ -38,7 +39,7 @@ export const AdminPage = () => {
     } finally {
       setLoading(false);
     }
-  }, [BASE_URL, token, setError, setLoading, setUsersList])
+  }, [baseUrl, token, setError, setLoading, setUsersList])
   
   useEffect(() => {
     getUsers();

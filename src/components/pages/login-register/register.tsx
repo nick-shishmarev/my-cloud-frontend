@@ -11,7 +11,7 @@ import { isValidEmail, isValidPassword, isValidUserName } from '../../utilits/va
 export const RegisterPage = () => {
   const navigate = useNavigate();
 
-  const { BASE_URL, 
+  const { baseUrls, 
     loading, 
     setIsAuthorised, 
     setIsAdmin, 
@@ -28,6 +28,7 @@ export const RegisterPage = () => {
   const [fullName, setFullName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const { baseUrl } = baseUrls!;
 
   const registerUser = async (user: RegRequest) => {
     const url = URL_REGISTER; 
@@ -38,7 +39,7 @@ export const RegisterPage = () => {
     };
     setLoading(true);
     try {
-      const result = await fetch(BASE_URL + url, params);
+      const result = await fetch(baseUrl + url, params);
       if (result.status === 201) {
         const responseJson = await result.json();
         const { token, user} = responseJson;

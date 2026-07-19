@@ -11,13 +11,14 @@ interface Props {
 
 export const DisplayFile = (props: Props) => {
   const { file, getFiles } = props;
-  const { BASE_URL, token, error, setLoading, setError } = useContext(MyCloudContext);
+  const { baseUrls, token, error, setLoading, setError } = useContext(MyCloudContext);
   const [newName, setNewName] = useState<string>('');
   const [newСomment, setNewСomment] = useState<string>('');
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied' | 'error'>('idle');
 
   const { display_name, size_bytes, comment, created_at, downloaded_at } = file;
   const dateCreated = new Date(created_at!).toLocaleString('ru-RU');
+  const { baseUrl, baseUrlMedia } = baseUrls!;
   
   let dateDownloaded = '';
   if (downloaded_at) {
@@ -27,7 +28,7 @@ export const DisplayFile = (props: Props) => {
   let publicLink = '';
   if (file.public_url) {
     if (!file.public_url.startsWith('http')) {
-      publicLink = BASE_URL + file.public_url!;
+      publicLink = baseUrlMedia + file.public_url!;
     } else {
       publicLink = file.public_url!;
     }
@@ -45,7 +46,7 @@ export const DisplayFile = (props: Props) => {
     setLoading(true);
 
     try {
-      const result = await fetch(BASE_URL + url, params);
+      const result = await fetch(baseUrl + url, params);
 
       if (!result.ok) {
         throw new Error(`HTTP error! status: ${result.status}`);
@@ -70,7 +71,7 @@ export const DisplayFile = (props: Props) => {
       } 
     };
 
-    const result = await fetch(BASE_URL + url, params);
+    const result = await fetch(baseUrl + url, params);
 
     if (!result.ok) throw new Error('Не удалось скачать файл');
 
@@ -100,7 +101,7 @@ export const DisplayFile = (props: Props) => {
     setLoading(true);
     
     try {
-      const result = await fetch(BASE_URL + url, params);
+      const result = await fetch(baseUrl + url, params);
 
       if (!result.ok) {
         throw new Error(`HTTP error! status: ${result.status}`);
@@ -146,12 +147,6 @@ export const DisplayFile = (props: Props) => {
     if (publicLink === '') return;
     const status = copyToClipboard(publicLink);
     setCopyStatus(status);
-    // try {
-    //   await navigator.clipboard.writeText(publicLink!);
-    //   setCopyStatus('copied');
-    // } catch {
-    //   setCopyStatus('error');
-    // }
   };
 
   return (
@@ -171,7 +166,7 @@ export const DisplayFile = (props: Props) => {
       <div className="file-btn" title='Переименовать' onClick={onRename}>&#128260;</div>
       <div className="file-btn" title='Просмотр'>
         <a className='file-link' 
-          href={BASE_URL + file.public_url}
+          href={baseUrl + file.public_url}
           target="_blank"
           rel="noopener noreferrer"
         >⏺️</a>
@@ -182,7 +177,7 @@ export const DisplayFile = (props: Props) => {
         >🔗</div>
       {copyStatus === 'copied' && <div className="file-public-link-box">
         <div className="file-public-link">
-          Скопировано
+          Ссылка скопирована
         </div> 
         <div className='file-operation-btn' onClick={()=> setCopyStatus('idle')}>
           &times;
@@ -190,7 +185,7 @@ export const DisplayFile = (props: Props) => {
       </div>}
       {copyStatus === 'error' && <div className="file-public-link-box">
         <div className="file-public-link">
-          Не удалось скопировать ссылку
+          Не удалось скопировать ссылку: {publicLink}
         </div> 
         <div className='file-operation-btn' onClick={()=> setCopyStatus('idle')}>
           &times;
