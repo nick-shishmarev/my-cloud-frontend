@@ -14,7 +14,7 @@ export const UploadFilePage = () => {
   const [comment, setComment] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<'idle' | 'uploading' | 'success' | 'error'>('idle');
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | null>(null);
   const { baseUrl } = baseUrls!;
 
   if (!isAuthorised) {
@@ -45,6 +45,12 @@ export const UploadFilePage = () => {
   const onSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!file) return;
+    if (file.size > 10 * 1024 * 1024) {
+      setStatus('error');
+      const error = new Error('Файл слишком большой для хранилища')
+      setError(error);
+      return;
+    }
 
     const formData = new FormData();
     formData.append("file", file);
@@ -64,7 +70,6 @@ export const UploadFilePage = () => {
     
     try {
       const result = await fetch(baseUrl + url, params);
-
       if (!result.ok) {
         throw new Error(`HTTP error! status: ${result.status}`);
       }
@@ -76,8 +81,13 @@ export const UploadFilePage = () => {
       }
 
       throw new Error(`Error uploading! status: ${result.status}`);
-    } catch {
-      setStatus('error');
+    } catch (err) {
+      let error = err instanceof Error ? err : new Error(String(err));
+      if (error.message.includes('Failed to fetch')) {
+        error = new Error('Серверная ошибка - файл не загружен');
+      }
+      setStatus('error')
+      setError(error)
     }
   }
 
@@ -134,9 +144,9 @@ export const UploadFilePage = () => {
             {status === 'uploading' ? 'Загрузка...' : 'Загрузить'}
           </button>
         </form>
-        {error && (
+        {status === 'error' && (
           <div className='input-error-msg'>
-            {error}
+            {error!.message}
           </div>
         )}
 
