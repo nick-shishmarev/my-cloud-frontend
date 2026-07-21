@@ -14,6 +14,11 @@ export const AdminPage = () => {
   const navigate = useNavigate();
 
   const getUsers = useCallback(async () => {
+    if (baseUrl === '') {
+      navigate('/');
+      return;
+    }
+
     const url = URL_USERS;
     const params: FetchParams = {
         method: "GET", 
@@ -39,7 +44,7 @@ export const AdminPage = () => {
     } finally {
       setLoading(false);
     }
-  }, [baseUrl, token, setError, setLoading, setUsersList])
+  }, [baseUrl, token, navigate, setError, setLoading, setUsersList])
   
   useEffect(() => {
     getUsers();
@@ -63,7 +68,7 @@ export const AdminPage = () => {
           {error.name}: {error.message}
         </div>
       </div>}
-      <div className="user-row">
+      <div className="user-row dark">
         {/* <div className="user-id">ID</div> */}
         <div className="user-username">Логин</div>
         <div className="user-admin">Админ</div>

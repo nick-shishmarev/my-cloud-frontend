@@ -39,7 +39,6 @@
   border-bottom: 2px solid #888;
 }
 
-.main-box-header,
 .main-box-row {
   position: relative;
   padding: 10px 0;
@@ -47,6 +46,10 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid #888;
+}
+
+.main-box-row:hover {
+  background: #ccc;
 }
 
 .file-name {

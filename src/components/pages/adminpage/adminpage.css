@@ -15,6 +15,10 @@
   border-bottom: 1px solid #444;
 }
 
+.user-row:hover {
+  background: #ccc;
+}
+
 .user-username {
   width: 100px;
 }

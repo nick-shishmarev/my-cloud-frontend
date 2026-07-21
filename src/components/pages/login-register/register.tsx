@@ -29,6 +29,7 @@ export const RegisterPage = () => {
   const [userEmail, setUserEmail] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const { baseUrl } = baseUrls!;
+  const spec = '@#$%&*()<>?!'
 
   const registerUser = async (user: RegRequest) => {
     const url = URL_REGISTER; 
@@ -203,7 +204,8 @@ export const RegisterPage = () => {
               логин — только латинские буквы и цифры, первый символ — буква, длина от 4 до 20 символов
             </li>
             <li>
-              пароль — не менее 6 символов: как минимум одна заглавная буква, одна цифра и один спецсимвол
+              пароль — не менее 6 символов: как минимум одна заглавная буква, 
+              одна строчная буква, одна цифра и один спецсимвол ({spec})
             </li>
           </ul>
         </div>

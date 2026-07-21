@@ -26,6 +26,11 @@ export const MainPage = () => {
   const { baseUrl } = baseUrls!;
 
   const getFiles = useCallback(async () => {
+    if (baseUrl === '') {
+      navigate('/');
+      return;
+    }
+
     let url;
 
     if (isAdmin) {
@@ -65,7 +70,7 @@ export const MainPage = () => {
     } finally {
       setLoading(false);
     }
-  }, [baseUrl, stockOwner, isAdmin, token, setError, setLoading])
+  }, [baseUrl, stockOwner, isAdmin, token, navigate, setError, setLoading])
 
   const addFile = () => {
     navigate('/upload');
@@ -101,7 +106,7 @@ export const MainPage = () => {
           <div className="main-add-btn" onClick={addFile}>Добавить файл</div>}
       </div>
       <div className="main-box">
-        <div className="main-box-header">
+        <div className="main-box-row dark">
           <div className="file-name">Имя файла</div>
           <div className="file-size">Размер файла</div>
           <div className="file-comment">Комментарий</div>

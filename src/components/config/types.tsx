@@ -36,7 +36,7 @@ export interface IbaseUrls {
 }
 
 export interface IMyCloudContext {
-  baseUrls: IbaseUrls | null;
+  baseUrls: IbaseUrls;
   isAuthorised: boolean;
   isAdmin: boolean;
   loading: boolean;

@@ -13,7 +13,7 @@ interface Props {
 export const DisplayUser = (props: Props) => {
   const { user, getUsers } = props;
   const {id, username, fullname, email, directory, is_staff} = user;
-  const { baseUrls, token, setLoading, setStockOwner } = useContext(MyCloudContext); 
+  const { baseUrls, token, currentUser, setLoading, setStockOwner } = useContext(MyCloudContext); 
   const navigate = useNavigate();
   const [fileNumber, setFileNumber] = useState<number>(0);
   const [fileVolume, setFileVolume] = useState<number>(0);
@@ -21,6 +21,11 @@ export const DisplayUser = (props: Props) => {
   const { baseUrl } = baseUrls!;
 
   const onDelete = async () => {
+    if (currentUser!.id === id) {
+      const error = new Error('Нельзя удалить свмого себя!');
+      setUserError(error);
+      return;
+    }
     setLoading(true);
     const url = `${URL_USERS}${id}`;
     const params: FetchParams = {
@@ -92,6 +97,11 @@ export const DisplayUser = (props: Props) => {
     }, [baseUrl, token, id, setUserError, setLoading, setFileVolume, setFileNumber]);
 
   const onAdminChange = async () => {
+    if (currentUser!.id === id) {
+      const error = new Error('Нельзя удалить статус администратора у свмого себя!');
+      setUserError(error);
+      return;
+    }
     setLoading(true);
     const staff = !is_staff;
     const url = `${URL_USERS}${id}`;

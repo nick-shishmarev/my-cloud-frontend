@@ -20,6 +20,10 @@ export const LogoutPage = () => {
     navigate('/')
   }
 
+  const onCancel = () => {
+    navigate('/main')
+  }
+
   return (
     <div className='login-page'>
       <div className="login-box">
@@ -29,6 +33,7 @@ export const LogoutPage = () => {
             <p>Подтверждаете?</p>
           </div>
           <button className="login-submit-btn" onClick={onClick}>Выход</button>
+          <button className="login-submit-btn" onClick={onCancel}>Отмена</button>
         </div>
       </div>
     </div>

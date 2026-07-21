@@ -17,7 +17,7 @@ export const MyCloud = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [stockOwner, setStockOwner] = useState<User | null>(null);
   const [token, setToken] = useState<string>('');
-  const [baseUrls, setBaseUrls] = useState<IbaseUrls | null>(null);
+  const [baseUrls, setBaseUrls] = useState<IbaseUrls>({baseUrl: '', baseUrlMedia: ''});
 
   useEffect(() => {
     getBaseUrl(setBaseUrls);
