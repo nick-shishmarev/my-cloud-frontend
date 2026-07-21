@@ -10,11 +10,11 @@ import { DisplayUser } from './displayuser';
 export const AdminPage = () => {
   const { baseUrls, token, isAuthorised, isAdmin, loading, error, setLoading, setError } = useContext(MyCloudContext);
   const [usersList, setUsersList] = useState<User[]>([]);
-  const { baseUrl } = baseUrls!;
+  const { baseUrl, baseUrlMedia } = baseUrls!;
   const navigate = useNavigate();
 
   const getUsers = useCallback(async () => {
-    if (baseUrl === '') {
+    if (baseUrlMedia === '') {
       navigate('/');
       return;
     }

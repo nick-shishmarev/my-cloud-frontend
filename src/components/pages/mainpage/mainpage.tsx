@@ -23,10 +23,10 @@ export const MainPage = () => {
     
   const navigate = useNavigate();
   const [fileList, setFileList] = useState<IFile[]>([]);
-  const { baseUrl } = baseUrls!;
+  const { baseUrl, baseUrlMedia } = baseUrls!;
 
   const getFiles = useCallback(async () => {
-    if (baseUrl === '') {
+    if (baseUrlMedia === '') {
       navigate('/');
       return;
     }
