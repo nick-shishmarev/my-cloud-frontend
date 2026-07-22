@@ -22,7 +22,7 @@ export const DisplayUser = (props: Props) => {
 
   const onDelete = async () => {
     if (currentUser!.id === id) {
-      const error = new Error('Нельзя удалить свмого себя!');
+      const error = new Error('Нельзя удалить самого себя!');
       setUserError(error);
       return;
     }
@@ -98,7 +98,7 @@ export const DisplayUser = (props: Props) => {
 
   const onAdminChange = async () => {
     if (currentUser!.id === id) {
-      const error = new Error('Нельзя удалить статус администратора у свмого себя!');
+      const error = new Error('Нельзя удалить статус администратора у самого себя!');
       setUserError(error);
       return;
     }

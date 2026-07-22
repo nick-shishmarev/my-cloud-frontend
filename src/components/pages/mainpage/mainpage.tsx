@@ -23,7 +23,13 @@ export const MainPage = () => {
     
   const navigate = useNavigate();
   const [fileList, setFileList] = useState<IFile[]>([]);
-  const { baseUrl, baseUrlMedia } = baseUrls!;
+  
+  let baseUrl = '';
+  let baseUrlMedia = '';
+  if (baseUrls) {
+    baseUrl = baseUrls.baseUrl
+    baseUrlMedia = baseUrls.baseUrlMedia
+  }
 
   const getFiles = useCallback(async () => {
     if (baseUrlMedia === '') {
@@ -70,7 +76,7 @@ export const MainPage = () => {
     } finally {
       setLoading(false);
     }
-  }, [baseUrl, stockOwner, isAdmin, token, navigate, setError, setLoading])
+  }, [baseUrl, baseUrlMedia, stockOwner, isAdmin, token, navigate, setError, setLoading])
 
   const addFile = () => {
     navigate('/upload');

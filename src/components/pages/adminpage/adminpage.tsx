@@ -10,8 +10,14 @@ import { DisplayUser } from './displayuser';
 export const AdminPage = () => {
   const { baseUrls, token, isAuthorised, isAdmin, loading, error, setLoading, setError } = useContext(MyCloudContext);
   const [usersList, setUsersList] = useState<User[]>([]);
-  const { baseUrl, baseUrlMedia } = baseUrls!;
   const navigate = useNavigate();
+  
+  let baseUrl = '';
+  let baseUrlMedia = '';
+  if (baseUrls) {
+    baseUrl = baseUrls.baseUrl
+    baseUrlMedia = baseUrls.baseUrlMedia
+  }
 
   const getUsers = useCallback(async () => {
     if (baseUrlMedia === '') {
@@ -44,7 +50,7 @@ export const AdminPage = () => {
     } finally {
       setLoading(false);
     }
-  }, [baseUrl, token, navigate, setError, setLoading, setUsersList])
+  }, [baseUrl, baseUrlMedia, token, navigate, setError, setLoading, setUsersList])
   
   useEffect(() => {
     getUsers();
